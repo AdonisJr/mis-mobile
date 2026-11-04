@@ -39,3 +39,14 @@ Docs: https://docs.expo.dev/eas/index.md
 - If `ios/` and `android/` directories do not exist, they are generated (Continuous Native Generation). Never create or edit them by hand — configure native behavior in `app.json` and config plugins.
 - Expo Go only includes its bundled native modules. After adding a library with native code, the app needs a development build: `npx expo run:ios|android` locally, or `eas build --profile development`.
 - Prefer recommended Expo modules over third-party libraries, and check your available skills before adding dependencies. Docs: https://docs.expo.dev/versions/latest/index.md
+
+## MIS workspace
+
+Part of the `mis` project (owner: a.baladon@qstrike.com). The student/parent app: login (Sanctum token), attendance, and push notifications on RFID attendance scans, sent by mis-backend through the Expo push service.
+
+- Layer chain (build order): types → api-client → hooks/store → component → screen(route) → test? (no test runner yet)
+- Rules: `.claude/rules/rules-common.md` + `.claude/rules/rules-mobile.md` (this file wins on conflict)
+- Agents: `mobile-developer` (implements) · `mobile-auditor` (audits staged changes)
+- Plans: `.claude/common/plans/active/<slug>/plan-mobile.md`
+- Checks: `npx expo lint` · `npx tsc --noEmit`
+- Env: `EXPO_PUBLIC_API_URL` (mis-backend base URL; in `.env`, template `.env.example`)

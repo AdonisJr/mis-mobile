@@ -41,3 +41,10 @@ example
 # generated native folders
 /ios
 /android
+
+# local env (EXPO_PUBLIC_* values)
+.env
+
+# workspace symlinks (machine-specific, created by setup-links)
+.claude/common
+.claude/diagrams
