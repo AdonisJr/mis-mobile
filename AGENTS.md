@@ -50,4 +50,5 @@ Part of the `mis` project (owner: a.baladon@qstrike.com). The student/parent app
 - Plans: `.claude/common/plans/active/<slug>/plan-mobile.md`
 - Checks: `npx expo lint` · `npx tsc --noEmit`
 - App structure (mis-34): routes login, change-password, (tabs)/index (Grades), (tabs)/profile, guarded by Stack.Protected in src/app/_layout.tsx; API client src/api/client.ts; session context src/hooks/use-auth.tsx (token in expo-secure-store).
+- Attendance (mis-36): tab (tabs)/attendance → useAttendance → GET /mis/mobile/attendance?month=YYYY-MM (stored rows + present/late/absent summary; absent excludes today); status chip colours are the status* tokens in src/constants/theme.ts.
 - Env: `EXPO_PUBLIC_API_URL` (mis-backend base URL; in `.env`, template `.env.example`)

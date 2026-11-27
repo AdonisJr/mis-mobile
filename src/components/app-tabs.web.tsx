@@ -22,6 +22,9 @@ export default function AppTabs() {
           <TabTrigger name="grades" href="/" asChild>
             <TabButton>Grades</TabButton>
           </TabTrigger>
+          <TabTrigger name="attendance" href="/attendance" asChild>
+            <TabButton>Attendance</TabButton>
+          </TabTrigger>
           <TabTrigger name="profile" href="/profile" asChild>
             <TabButton>Profile</TabButton>
           </TabTrigger>
