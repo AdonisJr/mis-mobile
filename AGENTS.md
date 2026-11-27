@@ -49,4 +49,5 @@ Part of the `mis` project (owner: a.baladon@qstrike.com). The student/parent app
 - Agents: `mobile-developer` (implements) · `mobile-auditor` (audits staged changes)
 - Plans: `.claude/common/plans/active/<slug>/plan-mobile.md`
 - Checks: `npx expo lint` · `npx tsc --noEmit`
+- App structure (mis-34): routes login, change-password, (tabs)/index (Grades), (tabs)/profile, guarded by Stack.Protected in src/app/_layout.tsx; API client src/api/client.ts; session context src/hooks/use-auth.tsx (token in expo-secure-store).
 - Env: `EXPO_PUBLIC_API_URL` (mis-backend base URL; in `.env`, template `.env.example`)
