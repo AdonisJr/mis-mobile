@@ -17,6 +17,12 @@ export const Colors = {
     accent: '#208AEF',
     onAccent: '#ffffff',
     danger: '#D92D20',
+    statusPresentBackground: '#DCFCE7',
+    statusPresentText: '#166534',
+    statusLateBackground: '#FEF3C7',
+    statusLateText: '#92400E',
+    statusTimedOutBackground: '#E2E8F0',
+    statusTimedOutText: '#334155',
   },
   dark: {
     text: '#ffffff',
@@ -27,6 +33,12 @@ export const Colors = {
     accent: '#3C9FFE',
     onAccent: '#ffffff',
     danger: '#F97066',
+    statusPresentBackground: '#166534',
+    statusPresentText: '#DCFCE7',
+    statusLateBackground: '#92400E',
+    statusLateText: '#FEF3C7',
+    statusTimedOutBackground: '#334155',
+    statusTimedOutText: '#E2E8F0',
   },
 } as const;
 
