@@ -1,44 +1,49 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
 import '@/global.css';
 
 import { Platform } from 'react-native';
 
 export const Colors = {
   light: {
-    text: '#000000',
-    background: '#ffffff',
-    backgroundElement: '#F0F0F3',
-    backgroundSelected: '#E0E1E6',
-    textSecondary: '#60646C',
-    accent: '#208AEF',
-    onAccent: '#ffffff',
-    danger: '#D92D20',
-    statusPresentBackground: '#DCFCE7',
-    statusPresentText: '#166534',
-    statusLateBackground: '#FEF3C7',
-    statusLateText: '#92400E',
-    statusTimedOutBackground: '#E2E8F0',
-    statusTimedOutText: '#334155',
+    text: '#121212',
+    textSecondary: '#5E5E58',
+    background: '#F4F4F0',
+    backgroundElement: '#FFFFFF',
+    backgroundSelected: '#E8E8E2',
+    accent: '#D4F53C',
+    onAccent: '#121212',
+    danger: '#B42318',
+    border: '#8A8A84',
+    track: '#E4E4DE',
+    graphic: '#4D6B00',
+    tabBar: '#1C1C1E',
+    tabBarIcon: '#B8B8B2',
+    statusPresentBackground: '#E6F7B0',
+    statusPresentText: '#3A5200',
+    statusLateBackground: '#FFF0C2',
+    statusLateText: '#7A4D00',
+    statusTimedOutBackground: '#ECECE8',
+    statusTimedOutText: '#45453F',
   },
   dark: {
-    text: '#ffffff',
-    background: '#000000',
-    backgroundElement: '#212225',
-    backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
-    accent: '#3C9FFE',
-    onAccent: '#ffffff',
-    danger: '#F97066',
-    statusPresentBackground: '#166534',
-    statusPresentText: '#DCFCE7',
-    statusLateBackground: '#92400E',
-    statusLateText: '#FEF3C7',
-    statusTimedOutBackground: '#334155',
-    statusTimedOutText: '#E2E8F0',
+    text: '#F5F5F2',
+    textSecondary: '#A3A3A0',
+    background: '#0B0B0C',
+    backgroundElement: '#1A1A1C',
+    backgroundSelected: '#2A2A2D',
+    accent: '#D4F53C',
+    onAccent: '#0B0B0C',
+    danger: '#FF7A6B',
+    border: '#6E6E73',
+    track: '#3A3A3E',
+    graphic: '#D4F53C',
+    tabBar: '#1F1F22',
+    tabBarIcon: '#A3A3A0',
+    statusPresentBackground: '#2B3A12',
+    statusPresentText: '#D4F53C',
+    statusLateBackground: '#3D2E0F',
+    statusLateText: '#FFC857',
+    statusTimedOutBackground: '#2E2E32',
+    statusTimedOutText: '#D6D6D1',
   },
 } as const;
 
@@ -79,5 +84,14 @@ export const Spacing = {
   six: 64,
 } as const;
 
-export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
+export const Radius = { chip: 12, field: 16, card: 24, pill: 999 } as const;
+export const TouchTarget = 44;
+export const PillButtonHeight = 52;
+export const StatFont = { fontSize: 40, lineHeight: 46 } as const;
+export const GaugeValueFont = { fontSize: 32, lineHeight: 38 } as const;
+export const TabBarItemSize = 52;
+export const TabBarHeight = TabBarItemSize + Spacing.two * 2;
+export const BottomTabInset = TabBarHeight + Spacing.three;
+// matches the app.json splash colour so the overlay hands off to the native splash without a flash
+export const SplashBackground = '#208AEF';
 export const MaxContentWidth = 800;

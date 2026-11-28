@@ -1,13 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Spacing } from '@/constants/theme';
+import { Card } from '@/components/ui/card';
 import type { GeneralAverage } from '@/types/grades';
 
 const INCOMPLETE_AVERAGE_TEXT = 'Not complete yet';
 
-function formatAverageLabel(average: GeneralAverage): string {
+export function formatAverageLabel(average: GeneralAverage): string {
   if (average.term_number === null) return 'General average';
   return `Semester ${average.term_number} average`;
 }
@@ -19,10 +18,10 @@ function formatAverageValue(average: GeneralAverage): string {
 
 export function GeneralAverageBlock({ average }: { average: GeneralAverage }) {
   return (
-    <ThemedView type="backgroundSelected" style={styles.block}>
+    <Card style={styles.block}>
       <ThemedText type="smallBold">{formatAverageLabel(average)}</ThemedText>
       <ThemedText type="smallBold">{formatAverageValue(average)}</ThemedText>
-    </ThemedView>
+    </Card>
   );
 }
 
@@ -30,7 +29,5 @@ const styles = StyleSheet.create({
   block: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: Spacing.three,
-    borderRadius: Spacing.three,
   },
 });

@@ -5,8 +5,8 @@ import { AttendanceDayRow } from '@/components/attendance-day-row';
 import { AttendanceSummaryBlock } from '@/components/attendance-summary-block';
 import { MonthSwitcher } from '@/components/month-switcher';
 import { StatusMessage } from '@/components/status-message';
-import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { ScreenHeader } from '@/components/ui/screen-header';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 import { ATTENDANCE_EMPTY_MESSAGE, useAttendance } from '@/hooks/use-attendance';
 
@@ -51,15 +51,16 @@ export default function AttendanceScreen() {
         <ScrollView
           contentContainerStyle={styles.content}
           refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={refresh} />}>
-          <ThemedText type="subtitle">Attendance</ThemedText>
-          {selectedMonth ? (
-            <MonthSwitcher
-              month={selectedMonth}
-              canSelectNext={canSelectNextMonth}
-              onSelectPrevious={selectPreviousMonth}
-              onSelectNext={selectNextMonth}
-            />
-          ) : null}
+          <ScreenHeader title="Attendance">
+            {selectedMonth ? (
+              <MonthSwitcher
+                month={selectedMonth}
+                canSelectNext={canSelectNextMonth}
+                onSelectPrevious={selectPreviousMonth}
+                onSelectNext={selectNextMonth}
+              />
+            ) : null}
+          </ScreenHeader>
           {renderAttendanceBody()}
         </ScrollView>
       </SafeAreaView>

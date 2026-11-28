@@ -49,6 +49,7 @@ Part of the `mis` project (owner: a.baladon@qstrike.com). The student/parent app
 - Agents: `mobile-developer` (implements) · `mobile-auditor` (audits staged changes)
 - Plans: `.claude/common/plans/active/<slug>/plan-mobile.md`
 - Checks: `npx expo lint` · `npx tsc --noEmit`
-- App structure (mis-34): routes login, change-password, (tabs)/index (Grades), (tabs)/profile, guarded by Stack.Protected in src/app/_layout.tsx; API client src/api/client.ts; session context src/hooks/use-auth.tsx (token in expo-secure-store).
+- App structure (mis-34): routes login, change-password, (tabs)/index (Home), (tabs)/grades (Grades), (tabs)/profile, guarded by Stack.Protected in src/app/_layout.tsx; API client src/api/client.ts; session context src/hooks/use-auth.tsx (token in expo-secure-store).
 - Attendance (mis-36): tab (tabs)/attendance → useAttendance → GET /mis/mobile/attendance?month=YYYY-MM (stored rows + present/late/absent summary; absent excludes today); status chip colours are the status* tokens in src/constants/theme.ts.
+- Redesign (mis-37): dark/light palettes + size tokens in src/constants/theme.ts (only home of hex); Appearance preference (system/light/dark) in AppearanceProvider (src/hooks/use-appearance.tsx, expo-secure-store key mis.appearance) drives useColorScheme/useTheme; UI kit in src/components/ui/; floating icon-only tab bar on expo-router/ui (app-tabs.tsx, all platforms).
 - Env: `EXPO_PUBLIC_API_URL` (mis-backend base URL; in `.env`, template `.env.example`)

@@ -1,7 +1,7 @@
 import { ActivityIndicator, Pressable, StyleSheet } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
-import { Spacing } from '@/constants/theme';
+import { PillButtonHeight, Radius, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 
 const DISABLED_OPACITY = 0.5;
@@ -45,9 +45,9 @@ export function PrimaryButton({
 
 const styles = StyleSheet.create({
   button: {
-    minHeight: 48,
-    borderRadius: Spacing.two,
-    paddingHorizontal: Spacing.three,
+    minHeight: PillButtonHeight,
+    borderRadius: Radius.pill,
+    paddingHorizontal: Spacing.four,
     alignItems: 'center',
     justifyContent: 'center',
   },

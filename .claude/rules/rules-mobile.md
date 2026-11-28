@@ -49,7 +49,7 @@ Binding for every agent and human working in this repo. `rules-common.md` applie
 ## 4. Data & Validation
 
 - Where input is validated: client-side form checks in the screen or hook for UX only; mis-backend validation is authoritative (framework default).
-- Where persistence happens: on mis-backend. Locally only the Sanctum token (in `expo-secure-store`) and transient UI state (decided 2026-10-16).
+- Where persistence happens: on mis-backend. Locally only the Sanctum token and the Appearance preference (both in `expo-secure-store`, separate keys) and transient UI state (decided 2026-10-16; Appearance preference MIS-37 AMBIGUITY-11).
 - Response / error shape: Laravel JSON from mis-backend; validation errors are 422 `{message, errors}` (framework default). api-client throws a typed error; hooks expose `{data, error, loading}`.
 - Pagination / unbounded queries: attendance history is requested paginated or date-bounded; never fetch an unbounded list (framework default).
 
