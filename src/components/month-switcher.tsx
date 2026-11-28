@@ -1,8 +1,7 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Spacing } from '@/constants/theme';
+import { IconButton } from '@/components/ui/icon-button';
 
 const MONTH_NAMES = [
   'January',
@@ -39,24 +38,14 @@ export function MonthSwitcher({
 }: MonthSwitcherProps) {
   return (
     <View style={styles.row}>
-      <Pressable accessibilityRole="button" accessibilityLabel="Previous month" onPress={onSelectPrevious}>
-        <ThemedView type="backgroundElement" style={styles.chip}>
-          <ThemedText type="smallBold">‹</ThemedText>
-        </ThemedView>
-      </Pressable>
+      <IconButton icon="previous" accessibilityLabel="Previous month" onPress={onSelectPrevious} />
       <ThemedText type="smallBold">{formatMonthLabel(month)}</ThemedText>
-      <Pressable
-        accessibilityRole="button"
+      <IconButton
+        icon="next"
         accessibilityLabel="Next month"
-        accessibilityState={{ disabled: !canSelectNext }}
-        disabled={!canSelectNext}
-        onPress={onSelectNext}>
-        <ThemedView type="backgroundElement" style={styles.chip}>
-          <ThemedText type="smallBold" themeColor={canSelectNext ? 'text' : 'textSecondary'}>
-            ›
-          </ThemedText>
-        </ThemedView>
-      </Pressable>
+        onPress={onSelectNext}
+        isDisabled={!canSelectNext}
+      />
     </View>
   );
 }
@@ -66,10 +55,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  chip: {
-    paddingVertical: Spacing.one,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Spacing.three,
   },
 });

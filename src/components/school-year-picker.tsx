@@ -1,8 +1,8 @@
 import { Pressable, ScrollView, StyleSheet } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Spacing } from '@/constants/theme';
+import { Radius, Spacing, TouchTarget } from '@/constants/theme';
+import { useTheme } from '@/hooks/use-theme';
 import type { NamedRef } from '@/types/auth';
 
 export type SchoolYearPickerProps = {
@@ -12,6 +12,7 @@ export type SchoolYearPickerProps = {
 };
 
 export function SchoolYearPicker({ schoolYears, selectedId, onSelect }: SchoolYearPickerProps) {
+  const theme = useTheme();
   if (schoolYears.length === 0) return null;
 
   return (
@@ -23,14 +24,14 @@ export function SchoolYearPicker({ schoolYears, selectedId, onSelect }: SchoolYe
             key={schoolYear.id}
             accessibilityRole="button"
             accessibilityState={{ selected: isSelected }}
-            onPress={() => onSelect(schoolYear.id)}>
-            <ThemedView
-              type={isSelected ? 'backgroundSelected' : 'backgroundElement'}
-              style={styles.chip}>
-              <ThemedText type="small" themeColor={isSelected ? 'text' : 'textSecondary'}>
-                {schoolYear.name}
-              </ThemedText>
-            </ThemedView>
+            onPress={() => onSelect(schoolYear.id)}
+            style={[
+              styles.chip,
+              { backgroundColor: isSelected ? theme.accent : theme.backgroundElement },
+            ]}>
+            <ThemedText type="small" themeColor={isSelected ? 'onAccent' : 'text'}>
+              {schoolYear.name}
+            </ThemedText>
           </Pressable>
         );
       })}
@@ -43,8 +44,9 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
   chip: {
-    paddingVertical: Spacing.one,
+    minHeight: TouchTarget,
+    justifyContent: 'center',
     paddingHorizontal: Spacing.three,
-    borderRadius: Spacing.three,
+    borderRadius: Radius.pill,
   },
 });

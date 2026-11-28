@@ -3,11 +3,17 @@ import { useState } from 'react';
 import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AppearanceSelector } from '@/components/appearance-selector';
 import { StatusMessage } from '@/components/status-message';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { Avatar } from '@/components/ui/avatar';
+import { Card } from '@/components/ui/card';
 import { PrimaryButton } from '@/components/ui/primary-button';
+import { ScreenHeader } from '@/components/ui/screen-header';
+import { SecondaryButton } from '@/components/ui/secondary-button';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { useAppearance } from '@/hooks/use-appearance';
 import { useAuth } from '@/hooks/use-auth';
 import { useProfile } from '@/hooks/use-profile';
 import type { MobileStudent } from '@/types/auth';
@@ -34,6 +40,7 @@ function DetailRow({ label, value }: { label: string; value: string }) {
 export default function ProfileScreen() {
   const { student, errorMessage, isLoading, reload } = useProfile();
   const { signOut } = useAuth();
+  const { preference, saveErrorMessage, setPreference } = useAppearance();
   const [isSigningOut, setIsSigningOut] = useState(false);
 
   async function submitLogout() {
@@ -47,13 +54,13 @@ export default function ProfileScreen() {
       return <StatusMessage message={errorMessage ?? ''} actionLabel="Retry" onAction={reload} />;
     }
     return (
-      <ThemedView type="backgroundElement" style={styles.details}>
+      <Card>
         <DetailRow label="Name" value={formatStudentName(student)} />
         <DetailRow label="LRN" value={student.lrn} />
         <DetailRow label="Grade level" value={student.grade_level?.name ?? NOT_ENROLLED_TEXT} />
         <DetailRow label="Section" value={student.section?.name ?? NOT_ENROLLED_TEXT} />
         <DetailRow label="School year" value={student.school_year?.name ?? NOT_ENROLLED_TEXT} />
-      </ThemedView>
+      </Card>
     );
   }
 
@@ -61,9 +68,23 @@ export default function ProfileScreen() {
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.content}>
-          <ThemedText type="subtitle">Profile</ThemedText>
+          <ScreenHeader
+            title="Profile"
+            trailing={
+              student ? <Avatar firstName={student.first_name} lastName={student.last_name} /> : null
+            }
+          />
           {renderProfileBody()}
-          <PrimaryButton label="Change password" onPress={() => router.push('/change-password')} />
+          <Card>
+            <ThemedText type="smallBold">Appearance</ThemedText>
+            <AppearanceSelector value={preference} onSelect={setPreference} />
+            {saveErrorMessage ? (
+              <ThemedText type="small" themeColor="danger">
+                {saveErrorMessage}
+              </ThemedText>
+            ) : null}
+          </Card>
+          <SecondaryButton label="Change password" onPress={() => router.push('/change-password')} />
           <PrimaryButton label="Log out" onPress={submitLogout} isLoading={isSigningOut} />
         </ScrollView>
       </SafeAreaView>
@@ -85,11 +106,6 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     paddingHorizontal: Spacing.four,
     paddingBottom: BottomTabInset + Spacing.three,
-  },
-  details: {
-    gap: Spacing.three,
-    padding: Spacing.three,
-    borderRadius: Spacing.three,
   },
   detailRow: {
     gap: Spacing.half,

@@ -1,12 +1,14 @@
 import { Redirect, router } from 'expo-router';
 import { useState } from 'react';
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { readErrorMessage } from '@/api/client';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { Card } from '@/components/ui/card';
 import { PrimaryButton } from '@/components/ui/primary-button';
+import { SecondaryButton } from '@/components/ui/secondary-button';
 import { TextField } from '@/components/ui/text-field';
 import { MaxContentWidth, Spacing } from '@/constants/theme';
 import { useAuth } from '@/hooks/use-auth';
@@ -68,46 +70,44 @@ export default function ChangePasswordScreen() {
                 You must change your temporary password before continuing.
               </ThemedText>
             ) : null}
-            <TextField
-              label="Current password"
-              value={currentPassword}
-              onChangeText={setCurrentPassword}
-              secureTextEntry
-              autoCapitalize="none"
-            />
-            <TextField
-              label="New password"
-              value={newPassword}
-              onChangeText={setNewPassword}
-              secureTextEntry
-              autoCapitalize="none"
-            />
-            <TextField
-              label="Confirm new password"
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              secureTextEntry
-              autoCapitalize="none"
-            />
-            {errorMessage ? (
-              <ThemedText type="small" themeColor="danger">
-                {errorMessage}
-              </ThemedText>
-            ) : null}
-            <PrimaryButton
-              label="Change password"
-              onPress={submitPasswordChange}
-              isDisabled={currentPassword === '' || newPassword === '' || confirmPassword === ''}
-              isLoading={isSubmitting}
-            />
-            <Pressable
-              accessibilityRole="button"
-              onPress={mustChangePassword ? signOut : () => router.back()}
-              style={styles.textButton}>
-              <ThemedText type="link" themeColor="textSecondary">
-                {mustChangePassword ? 'Log out' : 'Cancel'}
-              </ThemedText>
-            </Pressable>
+            <Card>
+              <TextField
+                label="Current password"
+                value={currentPassword}
+                onChangeText={setCurrentPassword}
+                secureTextEntry
+                autoCapitalize="none"
+              />
+              <TextField
+                label="New password"
+                value={newPassword}
+                onChangeText={setNewPassword}
+                secureTextEntry
+                autoCapitalize="none"
+              />
+              <TextField
+                label="Confirm new password"
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                secureTextEntry
+                autoCapitalize="none"
+              />
+              {errorMessage ? (
+                <ThemedText type="small" themeColor="danger">
+                  {errorMessage}
+                </ThemedText>
+              ) : null}
+              <PrimaryButton
+                label="Change password"
+                onPress={submitPasswordChange}
+                isDisabled={currentPassword === '' || newPassword === '' || confirmPassword === ''}
+                isLoading={isSubmitting}
+              />
+              <SecondaryButton
+                label={mustChangePassword ? 'Log out' : 'Cancel'}
+                onPress={mustChangePassword ? signOut : () => router.back()}
+              />
+            </Card>
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -130,9 +130,5 @@ const styles = StyleSheet.create({
   form: {
     gap: Spacing.three,
     paddingVertical: Spacing.four,
-  },
-  textButton: {
-    alignItems: 'center',
-    paddingVertical: Spacing.two,
   },
 });

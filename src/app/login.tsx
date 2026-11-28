@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { readErrorMessage } from '@/api/client';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { Card } from '@/components/ui/card';
 import { PrimaryButton } from '@/components/ui/primary-button';
 import { TextField } from '@/components/ui/text-field';
 import { MaxContentWidth, Spacing } from '@/constants/theme';
@@ -40,33 +41,35 @@ export default function LoginScreen() {
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           style={styles.form}>
           <ThemedText type="title">MIS</ThemedText>
-          <TextField
-            label="LRN"
-            value={lrn}
-            onChangeText={setLrn}
-            keyboardType="number-pad"
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
-          <TextField
-            label="Password"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
-          {errorMessage ? (
-            <ThemedText type="small" themeColor="danger">
-              {errorMessage}
-            </ThemedText>
-          ) : null}
-          <PrimaryButton
-            label="Log in"
-            onPress={submitLogin}
-            isDisabled={isIncomplete}
-            isLoading={isSubmitting}
-          />
+          <Card>
+            <TextField
+              label="LRN"
+              value={lrn}
+              onChangeText={setLrn}
+              keyboardType="number-pad"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+            <TextField
+              label="Password"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+            {errorMessage ? (
+              <ThemedText type="small" themeColor="danger">
+                {errorMessage}
+              </ThemedText>
+            ) : null}
+            <PrimaryButton
+              label="Log in"
+              onPress={submitLogin}
+              isDisabled={isIncomplete}
+              isLoading={isSubmitting}
+            />
+          </Card>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </ThemedView>

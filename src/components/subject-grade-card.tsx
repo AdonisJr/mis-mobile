@@ -1,7 +1,8 @@
 import { StyleSheet, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
+import { Card } from '@/components/ui/card';
+import { Stat } from '@/components/ui/stat';
 import { Spacing } from '@/constants/theme';
 import type { SubjectGradeRow } from '@/types/grades';
 
@@ -11,20 +12,9 @@ function formatGrade(grade: number | null): string {
   return grade === null ? '' : String(grade);
 }
 
-function GradeCell({ label, value }: { label: string; value: string }) {
-  return (
-    <View style={styles.cell}>
-      <ThemedText type="small" themeColor="textSecondary">
-        {label}
-      </ThemedText>
-      <ThemedText type="smallBold">{value}</ThemedText>
-    </View>
-  );
-}
-
 export function SubjectGradeCard({ row }: { row: SubjectGradeRow }) {
   return (
-    <ThemedView type="backgroundElement" style={styles.card}>
+    <Card style={styles.card}>
       <ThemedText type="smallBold">{row.subject.name}</ThemedText>
       {row.term_number !== null ? (
         <ThemedText type="small" themeColor="textSecondary">
@@ -33,33 +23,28 @@ export function SubjectGradeCard({ row }: { row: SubjectGradeRow }) {
       ) : null}
       <View style={styles.cells}>
         {row.quarters.map((quarterGrade) => (
-          <GradeCell
+          <Stat
             key={quarterGrade.quarter}
+            size="small"
             label={`Q${quarterGrade.quarter}`}
             value={formatGrade(quarterGrade.grade)}
           />
         ))}
-        <GradeCell label="Final" value={formatGrade(row.final_grade)} />
+        <Stat size="small" label="Final" value={formatGrade(row.final_grade)} />
       </View>
       <ThemedText type="small" themeColor={row.remarks === FAILED_REMARK ? 'danger' : 'textSecondary'}>
         {row.remarks ?? ''}
       </ThemedText>
-    </ThemedView>
+    </Card>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
     gap: Spacing.two,
-    padding: Spacing.three,
-    borderRadius: Spacing.three,
   },
   cells: {
     flexDirection: 'row',
     gap: Spacing.four,
-  },
-  cell: {
-    minWidth: 40,
-    gap: Spacing.half,
   },
 });

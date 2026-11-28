@@ -1,40 +1,23 @@
-import { StyleSheet, View } from 'react-native';
-
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Spacing } from '@/constants/theme';
+import { Card } from '@/components/ui/card';
+import { KpiRow, type KpiItem } from '@/components/ui/kpi-row';
 import type { AttendanceSummary } from '@/types/attendance';
 
-function SummaryCell({ label, value }: { label: string; value: number }) {
-  return (
-    <View style={styles.cell}>
-      <ThemedText type="small" themeColor="textSecondary">
-        {label}
-      </ThemedText>
-      <ThemedText type="smallBold">{String(value)}</ThemedText>
-    </View>
-  );
+export function buildSummaryKpis(summary: AttendanceSummary): KpiItem[] {
+  return [
+    { label: 'Present', value: String(summary.present) },
+    { label: 'Late', value: String(summary.late) },
+    { label: 'Absent', value: String(summary.absent) },
+  ];
+}
+
+export function countRecordedDays(summary: AttendanceSummary): number {
+  return summary.present + summary.late + summary.absent;
 }
 
 export function AttendanceSummaryBlock({ summary }: { summary: AttendanceSummary }) {
   return (
-    <ThemedView type="backgroundSelected" style={styles.block}>
-      <SummaryCell label="Present" value={summary.present} />
-      <SummaryCell label="Late" value={summary.late} />
-      <SummaryCell label="Absent" value={summary.absent} />
-    </ThemedView>
+    <Card>
+      <KpiRow items={buildSummaryKpis(summary)} />
+    </Card>
   );
 }
-
-const styles = StyleSheet.create({
-  block: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: Spacing.three,
-    borderRadius: Spacing.three,
-  },
-  cell: {
-    alignItems: 'center',
-    gap: Spacing.half,
-  },
-});

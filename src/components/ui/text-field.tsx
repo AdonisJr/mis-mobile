@@ -1,7 +1,7 @@
 import { StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
-import { Spacing } from '@/constants/theme';
+import { PillButtonHeight, Radius, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 
 export type TextFieldProps = TextInputProps & { label: string };
@@ -11,12 +11,12 @@ export function TextField({ label, style, ...inputProps }: TextFieldProps) {
 
   return (
     <View style={styles.container}>
-      <ThemedText type="small">{label}</ThemedText>
+      <ThemedText type="small" themeColor="textSecondary">{label}</ThemedText>
       <TextInput
         placeholderTextColor={theme.textSecondary}
         style={[
           styles.input,
-          { borderColor: theme.backgroundSelected, color: theme.text },
+          { backgroundColor: theme.backgroundElement, borderColor: theme.border, color: theme.text },
           style,
         ]}
         {...inputProps}
@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderRadius: Spacing.two,
+    minHeight: PillButtonHeight,
+    borderRadius: Radius.field,
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
     fontSize: 16,

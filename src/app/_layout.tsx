@@ -1,11 +1,25 @@
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
+import { Colors } from '@/constants/theme';
+import { AppearanceProvider } from '@/hooks/use-appearance';
 import { AuthProvider, useAuth } from '@/hooks/use-auth';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 
 SplashScreen.preventAutoHideAsync();
+
+const NAVIGATION_THEMES = {
+  light: {
+    ...DefaultTheme,
+    colors: { ...DefaultTheme.colors, background: Colors.light.background },
+  },
+  dark: {
+    ...DarkTheme,
+    colors: { ...DarkTheme.colors, background: Colors.dark.background },
+  },
+};
 
 function RootStack() {
   const { isRestoring, isSignedIn, mustChangePassword } = useAuth();
@@ -26,14 +40,24 @@ function RootStack() {
   );
 }
 
-export default function RootLayout() {
+function ThemedRoot() {
   const colorScheme = useColorScheme();
+
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={NAVIGATION_THEMES[colorScheme]}>
+      <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
       <AuthProvider>
         <AnimatedSplashOverlay />
         <RootStack />
       </AuthProvider>
     </ThemeProvider>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <AppearanceProvider>
+      <ThemedRoot />
+    </AppearanceProvider>
   );
 }
